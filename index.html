@@ -13,10 +13,6 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- JS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <script src="js/main.js" type="text/javascript"></script>
-
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
@@ -39,20 +35,34 @@
   <div class="container">
     <div class="row">
       <div id="intro" class="twelve column">
-        <h1>Worried about your privacy? There's no need to go "camping" this Census.</h1>
+        <h1>#CensusFail</h1>
         <p>August 9 is Census night. All over Australia, families and households will huddle around laptops with poor quality internet connections to answer a series of questions that will provide a snapshot of who we are as a nation. The data collected by the census is invaluable. It provides important statistics about Australia which drive the development of evidence based government policy.</p>
         <p>In previous years, although your name and address were collected, it was not stored. As of this year <em>(2016)</em> things are different &mdash; <strong>your name and address are now stored to enable future linking to other datasets</strong>. The Census has transitioned from anonymous statistics to an identifiable, personal record of every person in the country.</p>
       </div>
     </div>
     <div class="row">
-      <div id="details" class="one-half column">
-        <p>When your name is stored, it will likely be run through a process that performs a one way encoding known as <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">hashing</a> and <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">salting</a>. The <a href="http://www.abs.gov.au/websitedbs/censushome.nsf/home/privacy">Australian Bureau of Statistics privacy policy</a> refers to this as an <em>`anonymous linkage key`</em>. Anyone with access to this key cannot decode it to reveal your name. However, your name and address can be taken from another source and run through the same encoding process to bring datasets together; linking your census answers with your medical records, international travel or other information of interest.</p>
-        <p>Use this handy tool to convert your name and the names of anyone else in your home on census night to a format that can still be read by a human, but cannot be used for automated linking. This will help you answer the census truthfully, providing valuable statistcs without forfeiting your right to privacy.</p>
-        <p><em>All conversion takes place locally, in your browser. No names or other information are transmitted when converting. The source code for this can also be found on <a href="https://github.com/KimBurgess/censusfail.com/tree/gh-pages">GitHub</a>. Feel free to make it better.</em></p>
-      </div>
-      <div class="one-half column">
-        <textarea id="source" placeholder="Enter your name here e.g. 'John Doe'" autofocus></textarea>
-        <textarea id="output" placeholder="Copy and paste this into your 2016 Census"  readonly></textarea>
+      <div id="details" class="ten columns">
+        <p>As per their <a href="http://www.abs.gov.au/websitedbs/censushome.nsf/home/privacy">privacy policy</a>, the Australian Bureau of Statistics will store your name and address separate to the remainder of your Census responses, with names replaced by <em>`anonymous linkage keys`</em>. At this point in time, no information has been published on how these linkage keys are generated. A <a href="https://www.righttoknow.org.au/request/method_for_creation_of_linkage_k">Freedom of Information request</a> has been lodged to provide this information however may not be released prior to the Census taking place.</p>
+
+        <p>Based on previous data integration projects, it is likely this linkage key may be a <a href="http://meteor.aihw.gov.au/content/index.phtml/itemId/349510">SLK-581</a> identifier. This is a 14 character alphanumeric string made from components of your first and last names, birth date and sex. Should you happen to <em>mistype</em> certain Census responses it may be possible to manipulate this identifier.</p>
+
+        <p id="disclaimer">Please note the authors of this site do not advocate that any person provide false or misleading information on their census form. The following is provided purely for informational purposes so that people will understand the implications of certain actions. This is also based on speculative information only at this point. Submitting a Census response that follows anything mentioned below would be a bad idea.</p>
+
+        <p>Lets breakdown how these identifiers are made. They take the form <code>XXXxxDDMMYYYYN</code> where...</p>
+
+        <blockquote>
+          <p><code>XXXX</code> is the 2nd, 3rd and 5th letter of your family name. If you have a short name, <code>2</code>'s are used in place of any missing letter.</p>
+          <p><code>xx</code> is the 2nd and 3rd letters of your first name, again substituting <code>2</code>'s for shorter names</p>
+          <p><code>DDMMYYYYY</code> becomes your date of birth</p>
+          <p><code>N</code> is a digit representing your sex where <code>1</code> is male, <code>2</code> is female or <code>9</code> for unknown</p>
+        </blockquote>
+
+        <p>Without falsifying data, if you were to accidentally enter your first name where it asks for a surname (and vice versa) you can see this would have a significant effect on the identifier created. Similarly, Wliliam Smiht, who suffers from some mild dyslexia, or Jaane Thhompson, who has an annoying, sticky keyboard may also find their data is matched to a smaller number of external datasets.</p>
+
+        <p>As a final note, is worth stating that while actions above will protect against <a href="http://www.nss.gov.au/nss/home.nsf/pages/Data%20integration%20-%20data%20linking%20information%20sheet%20three">deterministic linking</a>, your data can (and likely will) still be connected with other sources through <a href="http://www.nss.gov.au/nss/home.nsf/pages/Data%20integration%20-%20data%20linking%20information%20sheet%20four">probabilistic linking</a>.</p>
+
+        <p><small><em>Note:</em> an earlier version of this site provided a tool to obfuscate the your name when entering it into the Census questionnaire. Names appear to be stored as ASCII characters only, blocking that approach from working.</small></p>
+
       </div>
     </div>
     <div class="row">
